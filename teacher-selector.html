@@ -1,159 +1,105 @@
 <!doctype html>
-<html lang="en-GB">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#12345b">
-<meta name="description" content="Staff selector for KNGS Renewal Room: choose a Year 7, 8 or 9 lesson and share its link or QR code.">
-<title>Teacher Lesson Selector | KNGS Renewal Room</title>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#12345b"><meta name="description" content="KNGS Renewal Room teacher lesson selector: share a lesson link and create a student PDF."><title>Teacher Lesson Selector | KNGS Renewal Room</title>
 <style>
-:root{font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:#f4f8fc;color:#17334d;font-size:16px;line-height:1.5}
-*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button{cursor:pointer}
-button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #e3ac33;outline-offset:3px}
-header{background:linear-gradient(125deg,#12345b,#176c9c);color:#fff;padding:27px max(18px,calc((100vw - 1060px)/2))}
-header small{color:#c1e5fa;font-size:.76rem;font-weight:800;letter-spacing:.1em}
-header h1{font-size:clamp(27px,4vw,42px);line-height:1.17;letter-spacing:-.03em;margin:9px 0 5px}header p{color:#e1f1f9;margin:0}
-main{max-width:1060px;padding:0 18px;margin:25px auto 55px}
-.card{background:#fff;border:1px solid #d1e1ed;border-radius:16px;padding:23px;margin:15px 0;box-shadow:0 5px 22px #17324d08}
-.section-label{color:#216f98;font-weight:850;letter-spacing:.08em;text-transform:uppercase;font-size:.77rem}
-h2{font-size:1.5rem;line-height:1.25;margin:7px 0 14px}h3{font-size:1.13rem;margin:10px 0}p{margin:8px 0}
-.muted{color:#577186}.small{font-size:.86rem}
-.fields{display:grid;grid-template-columns:120px 1fr 1.35fr;gap:14px;align-items:end}
-.field{display:grid;gap:6px}.field label{font-size:.9rem;font-weight:700}
-select,input,textarea{width:100%;border:1px solid #aac1d1;border-radius:9px;padding:11px;background:#fff;color:#15344c}
-textarea{min-height:83px;resize:vertical}
-.btn{border:0;border-radius:9px;background:#155d8b;color:#fff;font-weight:760;padding:11px 15px}
-.btn:hover{background:#0b486e}.btn.ghost{background:#eaf3fa;color:#164d71;border:1px solid #bdd5e5}
-.btn.secondary{background:#fff;color:#155581;border:1px solid #a9cbe0}
-.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.between{justify-content:space-between}
-.detail{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:22px;align-items:start}
-.number{display:inline-block;background:#e4f2fa;color:#165981;border-radius:8px;padding:5px 10px;font-size:.85rem;font-weight:800}
-.linkbox{display:flex;gap:9px;align-items:center}.linkbox input{font-size:.84rem;min-width:0}
-.checks{padding-left:22px;margin:8px 0;color:#3d5b70}.checks li{margin:5px 0}
-.qr{background:#f9fcfe;border:1px solid #d2e4ed;border-radius:13px;padding:16px;text-align:center}
-.qr img{display:block;width:min(100%,212px);aspect-ratio:1;background:white;margin:0 auto;border:10px solid white;border-radius:8px;image-rendering:pixelated}
-.qr-note{font-size:.76rem;color:#577186;margin:10px 0 0}
-.info{padding:13px;border-radius:10px;background:#e8f4fb;border:1px solid #c5e1ee}
-.confirm{color:#216f65;font-weight:800;font-size:.84rem;min-height:1.6em}
-.slip{display:none}
-footer{text-align:center;color:#526d80;font-size:.83rem;padding:22px}
-@media(max-width:760px){.fields{grid-template-columns:1fr}.detail{grid-template-columns:1fr}.qr{max-width:315px}main{padding:0 12px}}
-@page{size:A4 portrait;margin:15mm}
-@media print{
-body{background:white;color:black;font-size:11pt}
-header,main,footer{display:none!important}
-.slip{display:block;border:2px solid #17334d;padding:13mm;break-inside:avoid}
-.slip-top{font-size:9pt;font-weight:850;letter-spacing:.1em;border-bottom:2px solid #17334d;padding-bottom:3mm}
-.slip h1{font-size:24pt;margin:9mm 0 2mm}.slip h2{font-size:17pt;margin:1mm 0 6mm}
-.slip p{margin:2.5mm 0}.slip .qr{float:right;width:58mm;padding:3mm;margin:1mm 0 5mm 8mm}
-.slip .qr img{width:50mm;border:2mm solid white}
-.slip .line{border-bottom:1px solid #888;display:inline-block;min-width:50mm}
-.slip .link{overflow-wrap:anywhere;font-size:9pt}
-.slip .instructions{clear:both;margin-top:8mm;border-top:1px solid #b7b7b7;padding-top:5mm}
-.slip .instructions li{margin:2mm 0}
-}
-</style>
-</head>
-<body>
-<header><small>KINGS NORTON GIRLS' SCHOOL · COMPUTER SCIENCE</small><h1>Teacher Lesson Selector</h1><p>Choose a Renewal Room lesson, then share a direct link or QR code.</p></header>
+:root{font:16px/1.5 system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:#f4f8fc;color:#16334e}*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button{cursor:pointer}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #e2a733;outline-offset:3px}header{padding:28px max(18px,calc((100% - 1040px)/2));background:linear-gradient(115deg,#12345b,#176e9b);color:white}header small{color:#bfe5f6;font-size:.75rem;font-weight:800;letter-spacing:.1em}header h1{font-size:clamp(28px,4vw,42px);line-height:1.15;margin:9px 0 5px}header p{color:#d4eaf7;margin:0}main{max-width:1040px;margin:26px auto 60px;padding:0 17px}.card{background:white;border:1px solid #d0e0ec;border-radius:15px;padding:24px;margin:15px 0;box-shadow:0 7px 23px #1e3c5608}.kicker{font-size:.78rem;font-weight:800;letter-spacing:.08em;color:#1d6d9b;text-transform:uppercase}h2{font-size:1.47rem;margin:6px 0 16px}h3{font-size:1.16rem;margin:8px 0}p{margin:9px 0}.fields{display:grid;grid-template-columns:120px 1fr 1.3fr;gap:14px}.field{display:grid;gap:6px;margin:0 0 14px}.field label{font-weight:700;font-size:.89rem}.field input,.field select,.field textarea{width:100%;padding:10px 11px;border:1px solid #aac4d3;border-radius:8px;background:white;color:#18364f}.field textarea{min-height:85px;resize:vertical}.student-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}.btn{border:0;border-radius:9px;background:#165e8a;padding:11px 16px;color:white;font-weight:800}.btn:hover{background:#0d496e}.btn.secondary{background:#e8f3fa;border:1px solid #bad6e7;color:#195a80}.row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.between{justify-content:space-between}.muted{color:#526d80}.small{font-size:.86rem}.pill{display:inline-block;background:#e7f3fb;border-radius:99px;color:#175f87;font-weight:800;font-size:.8rem;padding:5px 11px}.linkbox{display:flex;gap:10px}.linkbox input{flex:1;min-width:0}.notice{background:#e9f4fb;border:1px solid #c8e2ee;border-radius:10px;padding:14px}.status{min-height:1.5rem;color:#19674e;font-weight:750;font-size:.85rem}.steps{padding-left:22px}.steps li{margin:6px 0}footer{text-align:center;font-size:.79rem;color:#536e80;margin:35px 0}
+@media(max-width:680px){.fields,.student-fields{grid-template-columns:1fr}.card{padding:17px}.linkbox{flex-direction:column}}
+</style></head>
+<body><header><small>KINGS NORTON GIRLS' SCHOOL · COMPUTER SCIENCE</small><h1>Teacher Lesson Selector</h1><p>Select a Renewal Room lesson and generate a personalised PDF with a clickable lesson link.</p></header>
 <main>
 <div class="row between"><a href="./">← Renewal Room homepage</a><span class="muted small">Staff tool · No login required</span></div>
-<section class="card" aria-labelledby="choose-heading">
-<span class="section-label">1. Choose the learning</span>
-<h2 id="choose-heading">Select year, unit and lesson</h2>
+<section class="card"><span class="kicker">1 · Choose the lesson</span><h2>Year group, unit and lesson</h2>
 <div class="fields">
 <div class="field"><label for="year">Year group</label><select id="year"><option value="7">Year 7</option><option value="8">Year 8</option><option value="9">Year 9</option></select></div>
 <div class="field"><label for="unit">Curriculum unit</label><select id="unit"></select></div>
 <div class="field"><label for="lesson">Lesson</label><select id="lesson"></select></div>
 </div>
-<p class="muted small">Lessons follow the numbering 701–718, 801–815 and 901–915.</p>
+<div class="row"><span class="pill" id="lesson-id"></span><strong id="lesson-title"></strong></div><p id="goal" class="muted"></p>
+<div class="field"><label for="link">Direct student hyperlink</label><div class="linkbox"><input id="link" type="text" readonly aria-label="Direct link to selected lesson"><button id="copy" class="btn" type="button">Copy link</button></div></div>
+<div class="row"><a id="open-link" class="btn secondary" style="text-decoration:none" href="#" target="_blank" rel="noopener noreferrer">Open selected lesson</a><span class="status" id="copy-status" role="status"></span></div>
 </section>
-<section class="card" aria-labelledby="share-heading">
-<span class="section-label">2. Give the student the lesson</span>
-<h2 id="share-heading">Share a direct lesson link</h2>
-<div class="detail">
-<div>
-<div class="row"><span class="number" id="lesson-id"></span><span class="muted small" id="lesson-unit"></span></div>
-<h3 id="lesson-title"></h3><p id="lesson-goal" class="muted"></p>
-<div class="field"><label for="link">Student link</label><div class="linkbox"><input id="link" readonly aria-label="Direct student lesson link"><button class="btn" type="button" id="copy">Copy</button></div></div>
-<div class="row"><button class="btn ghost" type="button" id="open">Open student lesson</button><button class="btn secondary" type="button" id="print">Print instruction slip</button></div>
-<p class="confirm" id="copy-status" role="status" aria-live="polite"></p>
-<h3>What the student will do</h3>
-<ol class="checks"><li>Learn the key ideas.</li><li>Complete the automatically marked knowledge questions.</li><li>Apply the knowledge through interactive activities and written answers.</li><li>Complete the independent final challenge.</li><li>Review, print their work and give it to the supervising member of staff.</li></ol>
-<div class="field"><label for="note">Optional instruction for the printed slip</label><textarea id="note" maxlength="240" placeholder="For example: Complete this lesson independently. Hand in your printed work when finished."></textarea></div>
+<section class="card"><span class="kicker">2 · Personalise the handout</span><h2>Student and teacher</h2>
+<div class="student-fields">
+<div class="field"><label for="student">Student name</label><input id="student" type="text" maxlength="80" autocomplete="off" placeholder="Enter student's name" required></div>
+<div class="field"><label for="teacher">Class teacher</label><select id="teacher"><option value="Mr Willis">Mr Willis</option><option value="Mr Goddard">Mr Goddard</option></select></div>
 </div>
-<div class="qr">
-<img id="qr-image" alt="QR code to open the selected Renewal Room lesson" width="212" height="212" referrerpolicy="no-referrer">
-<p><strong>Scan to open this lesson</strong></p><p class="qr-note">QR codes load from an external service. Only the public lesson link is shared with that service.</p>
-</div>
-</div>
+<div class="field"><label for="note">Additional instruction (optional)</label><textarea id="note" maxlength="250" placeholder="For example: Complete the work independently and hand the finished printout to your teacher."></textarea></div>
+<div class="row"><button id="download" class="btn" type="button">Download student PDF</button><span class="status" id="pdf-status" role="status" aria-live="polite"></span></div>
+<p class="muted small">Creates a one-page PDF on this device, including the student's name, selected teacher, lesson details, instructions and a clickable hyperlink. No student details are uploaded to a server.</p>
 </section>
-<div class="info small"><strong>For supervising staff:</strong> No student account is required. Work saves only in the browser being used. Students should print before clearing progress on a shared computer. Links and QR codes contain no pupil information. <a href="teacher-answers.html">Teacher answer packs</a> are available separately.</div>
-</main>
-<div class="slip" id="slip" aria-hidden="true">
-<div class="slip-top">KNGS · COMPUTER SCIENCE · RENEWAL ROOM</div>
-<div class="qr"><img id="print-qr" alt="Lesson QR code" width="212" height="212"><p style="font-size:9pt;text-align:center">Scan to open</p></div>
-<h1>Independent lesson</h1><h2 id="print-title"></h2>
-<p><strong>Student:</strong> <span class="line"></span></p><p><strong>Class:</strong> <span class="line"></span></p>
-<p><strong>Year:</strong> <span id="print-year"></span> · <strong>Unit:</strong> <span id="print-unit"></span></p>
-<p class="link" id="print-link"></p>
-<p id="print-note"></p>
-<div class="instructions"><strong>What you need to do</strong><ol><li>Read the lesson notes carefully.</li><li>Answer the knowledge questions and correct mistakes.</li><li>Complete the interactive and written activities.</li><li>Finish the final challenge and reflection.</li><li>Print your completed work and hand it to a member of staff.</li></ol><p><strong>Remember:</strong> Your work saves on this browser, not to a school account. On a shared device, print before clearing your session.</p></div>
-</div>
-<footer>KNGS Computer Science · Renewal Room · Teacher lesson selector</footer>
-<script src="lesson-data.js"></script><script src="ks3-extra-data.js"></script>
-<script>
+<section class="notice"><strong>Student instructions</strong><ol class="steps"><li>Open the lesson using the hyperlink in the PDF.</li><li>Complete Learn, Check, Apply, Create and Review.</li><li>Print the finished work record and give it to the supervising member of staff.</li></ol><span class="small muted">Progress is saved in the local browser, not submitted automatically. <a href="teacher-answers.html">Teacher answer packs</a> are available separately.</span></section>
+</main><footer>KNGS Computer Science · Renewal Room · Teacher lesson selector</footer>
+<script src="lesson-data.js"></script><script src="ks3-extra-data.js"></script><script>
 (function(){
 "use strict";
 const $=id=>document.getElementById(id);
 const lessons=[...(window.RENEWAL_LESSONS||[]),...(window.RENEWAL_KS3_EXTRA||[])].map(l=>({...l,year:l.year||7}));
 lessons.push({year:7,id:"704",unit:"E-Safety",title:"Your Digital Footprint",goal:"Recognise digital footprints, privacy risks and safer online choices."});
 lessons.sort((a,b)=>Number(a.id)-Number(b.id));
-const base=new URL(".",location.href);
-const urlFor=l=>new URL(l.id==="704"?"y7-lesson04.html?start=1":"lessons.html?lesson="+encodeURIComponent(l.id),base).href;
-let current=null;
-function option(text,value){const el=document.createElement("option");el.textContent=text;el.value=value;return el}
-function populateUnits(){
-const y=Number($("year").value),items=lessons.filter(l=>l.year===y),units=[...new Set(items.map(l=>l.unit))];
-$("unit").replaceChildren(...units.map(u=>option(u,u)));populateLessons()
+const site=new URL(".",location.href);
+const linkFor=l=>new URL(l.id==="704"?"y7-lesson04.html?start=1":"lessons.html?lesson="+encodeURIComponent(l.id),site).href;
+let selected=null;
+function option(text,value){let o=document.createElement("option");o.textContent=text;o.value=value;return o}
+function updateUnits(){const y=Number($("year").value),units=[...new Set(lessons.filter(x=>x.year===y).map(x=>x.unit))];$("unit").replaceChildren(...units.map(u=>option(u,u)));updateLessons()}
+function updateLessons(){const y=Number($("year").value),u=$("unit").value,items=lessons.filter(x=>x.year===y&&x.unit===u);$("lesson").replaceChildren(...items.map(x=>option(x.id+" · "+x.title,x.id)));update()}
+function update(){selected=lessons.find(x=>x.id===$("lesson").value)||null;if(!selected)return;$("lesson-id").textContent="Lesson "+selected.id;$("lesson-title").textContent=selected.title;$("goal").textContent=selected.goal;const url=linkFor(selected);$("link").value=url;$("open-link").href=url;$("copy-status").textContent="";$("pdf-status").textContent=""}
+$("year").addEventListener("change",updateUnits);$("unit").addEventListener("change",updateLessons);$("lesson").addEventListener("change",update);
+$("copy").addEventListener("click",async()=>{try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText($("link").value)}else{$("link").focus();$("link").select();if(!document.execCommand("copy"))throw Error("Clipboard unavailable")}$("copy-status").textContent="Link copied."}catch(e){$("link").focus();$("link").select();$("copy-status").textContent="Copy the highlighted link manually."}});
+function printable(s){return String(s||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/[\u2018\u2019]/g,"'").replace(/[\u2013\u2014]/g,"-").replace(/[^\x20-\x7E]/g,"?")}
+function pdfEscape(s){return printable(s).replace(/\\/g,"\\\\").replace(/\(/g,"\\(").replace(/\)/g,"\\)")}
+function wrap(s,width){const text=printable(s),words=text.split(/\s+/),lines=[];let line="";for(const word of words){if(!word)continue;if(word.length>width){if(line){lines.push(line);line=""}for(let i=0;i<word.length;i+=width)lines.push(word.slice(i,i+width));continue}if((line+" "+word).trim().length>width){lines.push(line);line=word}else{line=(line+" "+word).trim()}}if(line)lines.push(line);return lines}
+function generatePdf(info){
+const W=595,H=842,cmd=[];
+const text=(str,x,y,size=12,bold=false,color="0.11 0.19 0.29")=>{cmd.push(color+" rg", "BT /"+(bold?"F2":"F1")+" "+size+" Tf 1 0 0 1 "+x+" "+y+" Tm ("+pdfEscape(str)+") Tj ET")};
+const block=(str,x,y,size=12,max=82,leading=17,bold=false,color)=>{for(const ln of wrap(str,max)){text(ln,x,y,size,bold,color||"0.11 0.19 0.29");y-=leading}return y};
+cmd.push("0.075 0.20 0.36 rg 0 748 595 94 re f");
+text("KINGS NORTON GIRLS' SCHOOL",44,803,12,true,"1 1 1");
+text("COMPUTER SCIENCE  |  RENEWAL ROOM",44,779,18,true,"1 1 1");
+text("INDEPENDENT LEARNING INSTRUCTIONS",44,758,9,false,"0.83 0.93 1");
+text("STUDENT",45,708,10,true);block(info.student,154,708,15,49,17,true);
+text("TEACHER",45,668,10,true);text(info.teacher,154,668,14,true);
+text("YEAR",45,630,10,true);text(String(info.year),154,630,13);
+text("LESSON",45,600,10,true);text(String(info.id),154,600,13,true);
+text("TOPIC",45,570,10,true);let y=block(info.title,154,570,13,49,17,true);
+y=block("Unit: "+info.unit,45,528,11,85,15);
+cmd.push("0.81 0.88 0.93 RG 45 510 m 550 510 l S");
+text("YOUR LESSON LINK",45,486,11,true);
+const urlLines=wrap(info.url,80);let urlY=462;for(const line of urlLines){text(line,45,urlY,9,false,"0.08 0.35 0.63");urlY-=15}
+const rectBottom=Math.min(430,urlY+6);const linkTop=476;
+text("Open the hyperlink above to begin the selected lesson.",45,413,10);
+text("WHAT YOU NEED TO DO",45,372,12,true);
+const instructions=["1. Read the Learn section carefully.","2. Answer the Check questions and correct mistakes.","3. Complete the Apply activities and written explanations.","4. Finish the Create challenge and Review reflection.","5. Print your completed work and hand it to a member of staff."];
+let iy=348;for(let i=0;i<instructions.length;i++){text(instructions[i],49,iy,10);iy-=23}
+cmd.push("0.88 0.92 0.96 RG 45 212 m 550 212 l S");
+if(info.note){text("TEACHER INSTRUCTION",45,192,10,true);block(info.note,45,174,10,91,14)}
+text("Progress is saved on the device you use, not sent to your teacher.",45,75,9);
+text("On a shared device, print your work before clearing your session.",45,60,9);
+text("KNGS Computer Science  |  Renewal Room",45,29,8,false,"0.35 0.45 0.55");
+const stream=cmd.join("\n")+"\n";
+const objects=[
+"<< /Type /Catalog /Pages 2 0 R >>",
+"<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R /Annots [7 0 R] >>",
+"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
+"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>",
+"<< /Length "+new TextEncoder().encode(stream).length+" >>\nstream\n"+stream+"endstream",
+"<< /Type /Annot /Subtype /Link /Rect [44 "+rectBottom+" 552 "+linkTop+"] /Border [0 0 0] /A << /S /URI /URI ("+pdfEscape(info.url)+") >> >>"
+];
+const encoder=new TextEncoder();let chunks=[],length=0,offsets=[0];
+function push(s){const bytes=encoder.encode(s);chunks.push(bytes);length+=bytes.length}
+push("%PDF-1.4\n");
+for(let i=0;i<objects.length;i++){offsets.push(length);push((i+1)+" 0 obj\n"+objects[i]+"\nendobj\n")}
+const xref=length;push("xref\n0 "+(objects.length+1)+"\n0000000000 65535 f \n");
+for(let i=1;i<offsets.length;i++)push(String(offsets[i]).padStart(10,"0")+" 00000 n \n");
+push("trailer\n<< /Size "+(objects.length+1)+" /Root 1 0 R >>\nstartxref\n"+xref+"\n%%EOF");
+return new Blob(chunks,{type:"application/pdf"});
 }
-function populateLessons(){
-const y=Number($("year").value),u=$("unit").value;
-const items=lessons.filter(l=>l.year===y&&l.unit===u);
-$("lesson").replaceChildren(...items.map(l=>option(l.id+" · "+l.title,l.id)));update()
-}
-function qrUrl(url){return "https://api.qrserver.com/v1/create-qr-code/?size=260x260&margin=10&data="+encodeURIComponent(url)}
-function update(){
-current=lessons.find(l=>l.id===$("lesson").value)||null;if(!current)return;
-const url=urlFor(current);
-$("lesson-id").textContent="Lesson "+current.id;
-$("lesson-title").textContent=current.title;
-$("lesson-unit").textContent=current.unit;
-$("lesson-goal").textContent=current.goal;
-$("link").value=url;
-$("copy-status").textContent="";
-$("qr-image").src=qrUrl(url);
-$("print-qr").src=qrUrl(url);
-$("print-title").textContent=current.id+" · "+current.title;
-$("print-year").textContent=current.year;
-$("print-unit").textContent=current.unit;
-$("print-link").textContent="Open: "+url;
-syncNote();
-}
-function syncNote(){$("print-note").textContent=$("note").value.trim()?"Staff instruction: "+$("note").value.trim():""}
-$("year").addEventListener("change",populateUnits);
-$("unit").addEventListener("change",populateLessons);
-$("lesson").addEventListener("change",update);
-$("note").addEventListener("input",syncNote);
-$("copy").addEventListener("click",async()=>{
-const link=$("link").value;try{
-if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(link)}
-else{$("link").focus();$("link").select();if(!document.execCommand("copy"))throw Error("Copy not supported")}
-$("copy-status").textContent="Lesson link copied.";
-}catch(e){$("link").focus();$("link").select();$("copy-status").textContent="Select and copy the highlighted link manually."}
+$("download").addEventListener("click",()=>{
+const student=$("student").value.trim().replace(/\s+/g," ");
+if(!student){$("pdf-status").textContent="Enter the student's name first.";$("student").focus();return}
+if(!selected)return;
+const info={student,teacher:$("teacher").value,year:selected.year,id:selected.id,title:selected.title,unit:selected.unit,url:linkFor(selected),note:$("note").value.trim()};
+try{const blob=generatePdf(info),href=URL.createObjectURL(blob);const a=document.createElement("a");a.href=href;a.download="KNGS-Renewal-"+selected.id+"-"+student.replace(/[^a-zA-Z0-9 -]/g,"").replace(/\s+/g,"-").slice(0,35)+".pdf";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(href),30000);$("pdf-status").textContent="PDF download started."}catch(e){$("pdf-status").textContent="Could not create the PDF. Please try again."}
 });
-$("open").addEventListener("click",()=>{if(current)window.open(urlFor(current),"_blank","noopener,noreferrer")});
-$("print").addEventListener("click",()=>{syncNote();window.print()});
-$("qr-image").addEventListener("error",()=>{$("qr-image").alt="QR code unavailable. Copy the student link instead.";});
-populateUnits();
+updateUnits();
 })();
 </script></body></html>
