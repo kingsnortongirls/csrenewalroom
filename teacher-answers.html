@@ -1,0 +1,82 @@
+<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>KNGS | Teacher Answer Packs</title>
+<style>
+:root{font:16px/1.5 system-ui,Arial,sans-serif;color:#182f46;background:#f3f7fb}*{box-sizing:border-box}body{margin:0}.head{background:#12345b;color:white;padding:28px max(18px,calc((100% - 960px)/2))}.head h1{margin:3px 0}.head p{color:#cfe6f4;margin:0}.wrap{max-width:960px;margin:30px auto;padding:0 17px}.panel{background:white;border:1px solid #d4e1ed;border-radius:13px;padding:22px;margin:15px 0}.gate{max-width:530px;margin:45px auto}.hidden{display:none!important}button,input,select{font:inherit}input,select{width:100%;padding:10px;border:1px solid #9cbdce;border-radius:8px}button{border:0;border-radius:8px;background:#17608c;color:white;padding:11px 16px;font-weight:700;cursor:pointer}button:hover{background:#0c496f}button.secondary{background:#e7f2fb;color:#145378;border:1px solid #b9d4e8}button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid orange;outline-offset:3px}label{display:block;font-weight:700;margin:12px 0 6px}.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:space-between}.grid{display:grid;grid-template-columns:1fr 2fr;gap:15px}.muted{color:#526a7c}.small{font-size:.85rem}.warning{background:#fff6e8;border-left:4px solid #b58a2a;padding:12px;border-radius:5px}.hint{background:#eaf5fc;border-left:4px solid #247caa;padding:12px;border-radius:5px}.error{color:#a22a28;font-weight:bold}.question{padding:8px 0;border-bottom:1px solid #dfe8ed;break-inside:avoid}.answer{font-weight:700;color:#116542}.term{display:grid;grid-template-columns:34% 1fr;padding:7px 0;border-bottom:1px solid #e1e8ed;gap:10px}h2{margin:0 0 10px}h3{margin:24px 0 8px}.kicker{font-size:.78rem;font-weight:800;letter-spacing:.08em;color:#266b94;text-transform:uppercase}.print-header{border-bottom:2px solid #12345b;padding-bottom:7px}.printonly{display:none}@media(max-width:620px){.grid{grid-template-columns:1fr}.panel{padding:15px}}@page{size:A4;margin:14mm}@media print{body{background:white;font:9pt/1.3 Arial,sans-serif;color:black}.head,#gate,.controls,.noprint{display:none!important}.printonly{display:block}.wrap{margin:0;padding:0;max-width:none}.panel{border:0;padding:0;margin:0}.question{padding:4px 0}.answer{color:black}h2{font-size:15pt}h3{font-size:11pt;margin:13px 0 5px}.term{padding:4px 0}.warning,.hint{background:white;border:0;padding:0}.print-header{margin-bottom:10px}}
+</style></head><body><header class="head"><small>KINGS NORTON GIRLS' SCHOOL · COMPUTER SCIENCE</small><h1>Teacher Answer Packs</h1><p>Renewal Room · Years 7, 8 and 9</p></header><main class="wrap">
+<section id="gate" class="panel gate"><h2>Staff access</h2><p>Enter the staff password to view the lesson answer keys.</p><form id="login"><label for="password">Password</label><input type="password" id="password" autocomplete="off" required><p id="message" class="error" role="alert" aria-live="polite"></p><button type="submit">Unlock teacher answers</button></form><p class="warning small"><strong>Please note:</strong> A password prompt on public GitHub Pages is only a deterrent, not secure staff authentication. Someone inspecting published files could still find the answers. Do not use this page for confidential pupil data or secure exam materials.</p></section>
+<section id="staff" class="hidden"><div class="panel controls"><div class="row"><strong>Find a lesson</strong><button id="lock" type="button" class="secondary">Lock answers</button></div><div class="grid"><div><label for="year">Year group</label><select id="year"><option>7</option><option>8</option><option>9</option></select></div><div><label for="lesson">Lesson</label><select id="lesson"></select></div></div><p><button id="print" type="button">Print selected answer pack</button></p></div><div class="panel" id="pack"></div></section>
+</main><script src="lesson-data.js"></script><script src="ks3-extra-data.js"></script><script>
+(function(){
+"use strict";
+const byId=id=>document.getElementById(id);
+const esc=value=>String(value??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+const lessons=[...(window.RENEWAL_LESSONS||[]),...(window.RENEWAL_KS3_EXTRA||[])].map(x=>({...x,year:x.year||7}));
+const digital={
+id:"704",year:7,unit:"E-Safety",title:"Your Digital Footprint",goal:"Recognise digital footprints, privacy risks and safe online choices.",
+questions:[
+["What is a digital footprint?","Information left by your online activity"],
+["Which information is most risky to post publicly?","Your home address"],
+["Which is an active digital footprint?","Posting a comment on a video"],
+["Why should you check privacy settings?","To control who can see your information"],
+["Someone shares an embarrassing photograph of a classmate. What should you do?","Avoid sharing it and seek help from a trusted adult if needed"],
+["Can a deleted social media post still exist elsewhere?","Yes, someone may have saved a copy"],
+["Which is a safer public username?","BlueTiger27"],
+["Which is a passive digital footprint?","A website recording a visit automatically"],
+["Who might be able to see information posted publicly?","People outside your intended audience"],
+["What should you think about before posting?","Whether it is safe, respectful and suitable"]
+],matches:[["Active digital footprint","Information posted deliberately"],["Passive digital footprint","Information collected automatically"],["Privacy","Control over personal information"],["Reporting","Seeking help from a trusted adult or platform"],["Digital reputation","How online activity may affect how someone is viewed"]],
+writes:["Explain three changes Alex should make to protect privacy.","Explain risks in two fictional posts and suggest safer alternatives.","Explain which privacy settings matter most and why."],
+final:"Write a Digital Detective report about Alex Parker: four privacy risks, reasons, five improvements and digital footprints.",lab:"footprint"};
+lessons.push(digital);lessons.sort((a,b)=>Number(a.id)-Number(b.id));
+const tips={
+"footprint":["Privacy-risk decisions: select username with full name/birth year, school/class, street sign and holiday announcement. Favourite colour and pet photo are not automatically unsafe.","Privacy settings: approved friends only, automatic precise location off, direct messages limited to approved contacts.","Final report: explain disclosure of age, school, daily routine, location or ID details and recommend proportionate privacy improvements."],
+"hardware":["Identify CPU as processing, RAM as current working memory and SSD as non-volatile storage.","Credit a component choice supported by the user's task and a clear input-process-output explanation."],
+"storage":["Distinguish hardware from operating systems and application software.","Credit appropriate storage choices with speed, portability, cost and backup considerations."],
+"fault":["Look for simple safe checks first, then systematic tests and reasons.","Credit a report recording symptom, plausible cause, test and solution."],
+"report":["Correct guidance includes not forwarding harmful material, avoiding risky contact and seeking support from a trusted adult.","Use fictional scenarios, never request disclosures about pupils' own experiences."],
+"security":["Credit long, unique passwords/passphrases, MFA and independent verification of links.","Identify urgent credential requests and unexpected attachments as warning signs."],
+"polygon":["Exterior turning angle for regular polygon equals 360 divided by number of sides.","Credit tested sequences and correct handling of loops."],
+"coordinates":["Coordinates identify x then y; explain changes to position.","Credit logical debugging and a corrected, tested sequence."],
+"animation":["Expect movement steps, a changing variable and a condition for behaviour.","Credit clear explanations of speed, position and direction."],
+"timeline":["Babbage: early computer design; Boole: logic; Turing: computing theory and codebreaking; Berners-Lee: World Wide Web.","Distinguish the web from the internet and recognise HTML as markup."],
+"cipher":["A Caesar shift of 3 changes CAT to FDW.","Credit the encryption rule, consistent letter shifts and a clear decryption method."],
+"logic":["AND requires both true; OR at least one; NOT reverses a bit.","Credit full truth tables and accurate sorting traces."],
+"pythonPrint":["print() displays output; strings use quotes; comments begin with #.","Look for syntactically correct code and explanations of output."],
+"pythonCalc":["input() returns text, int() converts valid integer text, multiplication calculates total cost.","Credit three contrasting test cases and expected outputs."],
+"pythonIf":["Selection uses if/elif/else and indentation matters.","Credit the distinction between syntax and logic errors and suitable tests."],
+"cells":["Spreadsheet cell references combine column letter and row number.","Formulas start with = and recompute when inputs change."],
+"functions":["SUM totals values; AVERAGE calculates the arithmetic mean; MIN and MAX find extrema.","Profit equals income minus costs."],
+"whatif":["Changing price and attendance affects modelled income; costs affect profit.","Credit evidence from several runs and explain uncertainty of predictions."],
+"files":["Credit accurate GUI, WIMP, CLI and operating system definitions.","A move changes a file location; a copy leaves an additional copy."],
+"binary":["Check binary place-value working and hexadecimal conversions.","For unsigned 8-bit values, maximum is 255; results greater than this overflow."],
+"flowol":["Look for sensor, decision, actuator and repeated checks.","Test below, at and above important thresholds."],
+"sorting":["Bubble sort compares neighbours; insertion builds a sorted section; selection finds the next item; merge sort splits and merges.","Credit intermediate steps, not just the final sorted list."],
+"scams":["Credit independent checking of suspicious emails and URLs and reporting concerns.","Ransomware answers should mention prompt reporting and appropriate backup procedures."],
+"systems":["Distinguish CPU, RAM, ROM, firmware and secondary storage.","For responsibility tasks credit appropriate licensing, UK data protection and reducing e-waste."],
+"logic9":["Look for correct gate truth tables and Boolean combinations.","For binary addition check carries and overflow; for pseudocode check branches and tests."],
+"python9":["Credit appropriate casting, loops, zero-based list indexing, parameters and return values.","Test functions with typical and edge cases, and explain actual versus expected output."],
+"photo":["Credit suitable crop, resolution, layer, mask and opacity decisions.","Check readability, permissions and final export format."],
+"ai":["Distinguish learning from examples from fixed-rule systems; test predictions on unseen examples.","For ethics credit dataset balance, fairness checks and human oversight.","For generative AI credit independent source verification and privacy."]
+};
+const SHA="78bf8ee749fe16fd3d83c4e1f427cf3d38fc8714760afbda3b3cae1256fea340";
+async function sha256(str){const buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(str));return [...new Uint8Array(buf)].map(x=>x.toString(16).padStart(2,"0")).join("")}
+byId("login").addEventListener("submit",async event=>{event.preventDefault();try{if(await sha256(byId("password").value)===SHA){byId("password").value="";byId("message").textContent="";byId("gate").classList.add("hidden");byId("staff").classList.remove("hidden");populate();byId("year").focus()}else{byId("message").textContent="Incorrect password."}}catch(e){byId("message").textContent="Unable to check password on this browser."}});
+byId("lock").addEventListener("click",()=>{byId("staff").classList.add("hidden");byId("gate").classList.remove("hidden");byId("pack").textContent="";byId("password").focus()});
+byId("year").addEventListener("change",populate);byId("lesson").addEventListener("change",render);byId("print").addEventListener("click",()=>window.print());
+function populate(){byId("lesson").innerHTML=lessons.filter(x=>String(x.year)===byId("year").value).map(x=>'<option value="'+esc(x.id)+'">'+esc(x.id)+" · "+esc(x.title)+'</option>').join("");render()}
+function render(){
+const x=lessons.find(x=>x.id===byId("lesson").value);if(!x)return;
+const key=x.questions.map((q,i)=>'<div class="question"><strong>'+(i+1)+'. '+esc(q[0])+'</strong><div class="answer">Answer: '+esc(q[1])+'</div></div>').join("");
+const vocabulary=x.matches.map(pair=>'<div class="term"><strong>'+esc(pair[0])+'</strong><span>'+esc(pair[1])+'</span></div>').join("");
+const written=x.writes.map((w,i)=>'<div class="question"><strong>'+(i+1)+'. '+esc(w)+'</strong><div class="small muted">Award credit for an accurate explanation supported by a suitable example or evidence.</div></div>').join("");
+const practical=(tips[x.lab]||[]).map(t=>'<li>'+esc(t)+'</li>').join("");
+byId("pack").innerHTML='<div class="print-header"><div class="kicker">Year '+x.year+' · '+esc(x.unit)+'</div><h2>Lesson '+esc(x.id)+': '+esc(x.title)+'</h2><p class="muted"><strong>Learning aim:</strong> '+esc(x.goal)+'</p></div>'+
+'<h3>Knowledge check: 10 answers</h3><p class="small muted noprint">Correct answer text is shown because the student interface may rearrange options.</p>'+key+
+'<h3>Vocabulary and matching key</h3>'+vocabulary+
+'<h3>Written application tasks</h3>'+written+
+'<h3>Practical marking notes</h3><ul>'+practical+'</ul>'+
+'<h3>Final challenge</h3><p>'+esc(x.final)+'</p><ul><li>Correct subject knowledge and appropriate terminology</li><li>Reasoned recommendations or working that address the specific task</li><li>Testing, evaluation or evidence where the task calls for it</li><li>Independent explanation rather than copied phrases</li></ul>'+
+'<div class="hint"><strong>WWW:</strong> Record an accurate idea, correct working or well-justified decision.<p><strong>HTI:</strong> Identify one specific missing idea, incorrect step or weak explanation for improvement.</p></div>'+
+'<p class="small muted">Teacher judgement is required. An automatic score or minimum word count does not confirm the quality of extended answers.</p>';
+}
+})();
+</script></body></html>
