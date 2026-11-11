@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#12345b">
+<meta name="description" content="Staff selector for KNGS Renewal Room: choose a Year 7, 8 or 9 lesson and share its link or QR code.">
+<title>Teacher Lesson Selector | KNGS Renewal Room</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:#f4f8fc;color:#17334d;font-size:16px;line-height:1.5}
+*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button{cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #e3ac33;outline-offset:3px}
+header{background:linear-gradient(125deg,#12345b,#176c9c);color:#fff;padding:27px max(18px,calc((100vw - 1060px)/2))}
+header small{color:#c1e5fa;font-size:.76rem;font-weight:800;letter-spacing:.1em}
+header h1{font-size:clamp(27px,4vw,42px);line-height:1.17;letter-spacing:-.03em;margin:9px 0 5px}header p{color:#e1f1f9;margin:0}
+main{max-width:1060px;padding:0 18px;margin:25px auto 55px}
+.card{background:#fff;border:1px solid #d1e1ed;border-radius:16px;padding:23px;margin:15px 0;box-shadow:0 5px 22px #17324d08}
+.section-label{color:#216f98;font-weight:850;letter-spacing:.08em;text-transform:uppercase;font-size:.77rem}
+h2{font-size:1.5rem;line-height:1.25;margin:7px 0 14px}h3{font-size:1.13rem;margin:10px 0}p{margin:8px 0}
+.muted{color:#577186}.small{font-size:.86rem}
+.fields{display:grid;grid-template-columns:120px 1fr 1.35fr;gap:14px;align-items:end}
+.field{display:grid;gap:6px}.field label{font-size:.9rem;font-weight:700}
+select,input,textarea{width:100%;border:1px solid #aac1d1;border-radius:9px;padding:11px;background:#fff;color:#15344c}
+textarea{min-height:83px;resize:vertical}
+.btn{border:0;border-radius:9px;background:#155d8b;color:#fff;font-weight:760;padding:11px 15px}
+.btn:hover{background:#0b486e}.btn.ghost{background:#eaf3fa;color:#164d71;border:1px solid #bdd5e5}
+.btn.secondary{background:#fff;color:#155581;border:1px solid #a9cbe0}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.between{justify-content:space-between}
+.detail{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:22px;align-items:start}
+.number{display:inline-block;background:#e4f2fa;color:#165981;border-radius:8px;padding:5px 10px;font-size:.85rem;font-weight:800}
+.linkbox{display:flex;gap:9px;align-items:center}.linkbox input{font-size:.84rem;min-width:0}
+.checks{padding-left:22px;margin:8px 0;color:#3d5b70}.checks li{margin:5px 0}
+.qr{background:#f9fcfe;border:1px solid #d2e4ed;border-radius:13px;padding:16px;text-align:center}
+.qr img{display:block;width:min(100%,212px);aspect-ratio:1;background:white;margin:0 auto;border:10px solid white;border-radius:8px;image-rendering:pixelated}
+.qr-note{font-size:.76rem;color:#577186;margin:10px 0 0}
+.info{padding:13px;border-radius:10px;background:#e8f4fb;border:1px solid #c5e1ee}
+.confirm{color:#216f65;font-weight:800;font-size:.84rem;min-height:1.6em}
+.slip{display:none}
+footer{text-align:center;color:#526d80;font-size:.83rem;padding:22px}
+@media(max-width:760px){.fields{grid-template-columns:1fr}.detail{grid-template-columns:1fr}.qr{max-width:315px}main{padding:0 12px}}
+@page{size:A4 portrait;margin:15mm}
+@media print{
+body{background:white;color:black;font-size:11pt}
+header,main,footer{display:none!important}
+.slip{display:block;border:2px solid #17334d;padding:13mm;break-inside:avoid}
+.slip-top{font-size:9pt;font-weight:850;letter-spacing:.1em;border-bottom:2px solid #17334d;padding-bottom:3mm}
+.slip h1{font-size:24pt;margin:9mm 0 2mm}.slip h2{font-size:17pt;margin:1mm 0 6mm}
+.slip p{margin:2.5mm 0}.slip .qr{float:right;width:58mm;padding:3mm;margin:1mm 0 5mm 8mm}
+.slip .qr img{width:50mm;border:2mm solid white}
+.slip .line{border-bottom:1px solid #888;display:inline-block;min-width:50mm}
+.slip .link{overflow-wrap:anywhere;font-size:9pt}
+.slip .instructions{clear:both;margin-top:8mm;border-top:1px solid #b7b7b7;padding-top:5mm}
+.slip .instructions li{margin:2mm 0}
+}
+</style>
+</head>
+<body>
+<header><small>KINGS NORTON GIRLS' SCHOOL · COMPUTER SCIENCE</small><h1>Teacher Lesson Selector</h1><p>Choose a Renewal Room lesson, then share a direct link or QR code.</p></header>
+<main>
+<div class="row between"><a href="./">← Renewal Room homepage</a><span class="muted small">Staff tool · No login required</span></div>
+<section class="card" aria-labelledby="choose-heading">
+<span class="section-label">1. Choose the learning</span>
+<h2 id="choose-heading">Select year, unit and lesson</h2>
+<div class="fields">
+<div class="field"><label for="year">Year group</label><select id="year"><option value="7">Year 7</option><option value="8">Year 8</option><option value="9">Year 9</option></select></div>
+<div class="field"><label for="unit">Curriculum unit</label><select id="unit"></select></div>
+<div class="field"><label for="lesson">Lesson</label><select id="lesson"></select></div>
+</div>
+<p class="muted small">Lessons follow the numbering 701–718, 801–815 and 901–915.</p>
+</section>
+<section class="card" aria-labelledby="share-heading">
+<span class="section-label">2. Give the student the lesson</span>
+<h2 id="share-heading">Share a direct lesson link</h2>
+<div class="detail">
+<div>
+<div class="row"><span class="number" id="lesson-id"></span><span class="muted small" id="lesson-unit"></span></div>
+<h3 id="lesson-title"></h3><p id="lesson-goal" class="muted"></p>
+<div class="field"><label for="link">Student link</label><div class="linkbox"><input id="link" readonly aria-label="Direct student lesson link"><button class="btn" type="button" id="copy">Copy</button></div></div>
+<div class="row"><button class="btn ghost" type="button" id="open">Open student lesson</button><button class="btn secondary" type="button" id="print">Print instruction slip</button></div>
+<p class="confirm" id="copy-status" role="status" aria-live="polite"></p>
+<h3>What the student will do</h3>
+<ol class="checks"><li>Learn the key ideas.</li><li>Complete the automatically marked knowledge questions.</li><li>Apply the knowledge through interactive activities and written answers.</li><li>Complete the independent final challenge.</li><li>Review, print their work and give it to the supervising member of staff.</li></ol>
+<div class="field"><label for="note">Optional instruction for the printed slip</label><textarea id="note" maxlength="240" placeholder="For example: Complete this lesson independently. Hand in your printed work when finished."></textarea></div>
+</div>
+<div class="qr">
+<img id="qr-image" alt="QR code to open the selected Renewal Room lesson" width="212" height="212" referrerpolicy="no-referrer">
+<p><strong>Scan to open this lesson</strong></p><p class="qr-note">QR codes load from an external service. Only the public lesson link is shared with that service.</p>
+</div>
+</div>
+</section>
+<div class="info small"><strong>For supervising staff:</strong> No student account is required. Work saves only in the browser being used. Students should print before clearing progress on a shared computer. Links and QR codes contain no pupil information. <a href="teacher-answers.html">Teacher answer packs</a> are available separately.</div>
+</main>
+<div class="slip" id="slip" aria-hidden="true">
+<div class="slip-top">KNGS · COMPUTER SCIENCE · RENEWAL ROOM</div>
+<div class="qr"><img id="print-qr" alt="Lesson QR code" width="212" height="212"><p style="font-size:9pt;text-align:center">Scan to open</p></div>
+<h1>Independent lesson</h1><h2 id="print-title"></h2>
+<p><strong>Student:</strong> <span class="line"></span></p><p><strong>Class:</strong> <span class="line"></span></p>
+<p><strong>Year:</strong> <span id="print-year"></span> · <strong>Unit:</strong> <span id="print-unit"></span></p>
+<p class="link" id="print-link"></p>
+<p id="print-note"></p>
+<div class="instructions"><strong>What you need to do</strong><ol><li>Read the lesson notes carefully.</li><li>Answer the knowledge questions and correct mistakes.</li><li>Complete the interactive and written activities.</li><li>Finish the final challenge and reflection.</li><li>Print your completed work and hand it to a member of staff.</li></ol><p><strong>Remember:</strong> Your work saves on this browser, not to a school account. On a shared device, print before clearing your session.</p></div>
+</div>
+<footer>KNGS Computer Science · Renewal Room · Teacher lesson selector</footer>
+<script src="lesson-data.js"></script><script src="ks3-extra-data.js"></script>
+<script>
+(function(){
+"use strict";
+const $=id=>document.getElementById(id);
+const lessons=[...(window.RENEWAL_LESSONS||[]),...(window.RENEWAL_KS3_EXTRA||[])].map(l=>({...l,year:l.year||7}));
+lessons.push({year:7,id:"704",unit:"E-Safety",title:"Your Digital Footprint",goal:"Recognise digital footprints, privacy risks and safer online choices."});
+lessons.sort((a,b)=>Number(a.id)-Number(b.id));
+const base=new URL(".",location.href);
+const urlFor=l=>new URL(l.id==="704"?"y7-lesson04.html?start=1":"lessons.html?lesson="+encodeURIComponent(l.id),base).href;
+let current=null;
+function option(text,value){const el=document.createElement("option");el.textContent=text;el.value=value;return el}
+function populateUnits(){
+const y=Number($("year").value),items=lessons.filter(l=>l.year===y),units=[...new Set(items.map(l=>l.unit))];
+$("unit").replaceChildren(...units.map(u=>option(u,u)));populateLessons()
+}
+function populateLessons(){
+const y=Number($("year").value),u=$("unit").value;
+const items=lessons.filter(l=>l.year===y&&l.unit===u);
+$("lesson").replaceChildren(...items.map(l=>option(l.id+" · "+l.title,l.id)));update()
+}
+function qrUrl(url){return "https://api.qrserver.com/v1/create-qr-code/?size=260x260&margin=10&data="+encodeURIComponent(url)}
+function update(){
+current=lessons.find(l=>l.id===$("lesson").value)||null;if(!current)return;
+const url=urlFor(current);
+$("lesson-id").textContent="Lesson "+current.id;
+$("lesson-title").textContent=current.title;
+$("lesson-unit").textContent=current.unit;
+$("lesson-goal").textContent=current.goal;
+$("link").value=url;
+$("copy-status").textContent="";
+$("qr-image").src=qrUrl(url);
+$("print-qr").src=qrUrl(url);
+$("print-title").textContent=current.id+" · "+current.title;
+$("print-year").textContent=current.year;
+$("print-unit").textContent=current.unit;
+$("print-link").textContent="Open: "+url;
+syncNote();
+}
+function syncNote(){$("print-note").textContent=$("note").value.trim()?"Staff instruction: "+$("note").value.trim():""}
+$("year").addEventListener("change",populateUnits);
+$("unit").addEventListener("change",populateLessons);
+$("lesson").addEventListener("change",update);
+$("note").addEventListener("input",syncNote);
+$("copy").addEventListener("click",async()=>{
+const link=$("link").value;try{
+if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(link)}
+else{$("link").focus();$("link").select();if(!document.execCommand("copy"))throw Error("Copy not supported")}
+$("copy-status").textContent="Lesson link copied.";
+}catch(e){$("link").focus();$("link").select();$("copy-status").textContent="Select and copy the highlighted link manually."}
+});
+$("open").addEventListener("click",()=>{if(current)window.open(urlFor(current),"_blank","noopener,noreferrer")});
+$("print").addEventListener("click",()=>{syncNote();window.print()});
+$("qr-image").addEventListener("error",()=>{$("qr-image").alt="QR code unavailable. Copy the student link instead.";});
+populateUnits();
+})();
+</script></body></html>
